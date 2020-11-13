@@ -3,7 +3,7 @@ require 'json'
 require_relative '../../app/api'
 
 module ExpenseTracker
-  RSpec.describe 'Expense Tracker API' do
+  RSpec.describe 'Expense Tracker API', :db do
     include Rack::Test::Methods
     def app
       ExpenseTracker::API.new
@@ -34,7 +34,6 @@ module ExpenseTracker
         'amount' => 95.20,
         'date' => '2017-06-11'
       )
-    
       get '/expenses/2017-06-10'
       expect(last_response.status).to eq(200)
       expenses = JSON.parse(last_response.body)
